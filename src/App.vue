@@ -1,7 +1,24 @@
 <template>
   <div>
     <!-- <img alt="Vue logo" src="./assets/logo.png"> -->
-    <notifications />
+     <h1 class="text-1xl font-bold underline">
+      Hello world!
+    </h1>
+    <notifications class="mt-24">
+      <template #body="props">
+        <div class="my-notification">
+          <p class="title">
+            {{ props.item.title }}
+          </p>
+          <button class="close" @click="close">
+            <i class="fa fa-fw fa-close"></i>
+          </button>
+          <div v-html="props.item.text"/>
+        </div>
+      </template>
+    </notifications>
+    
+
     <h2>Usuarios Conectados</h2>
     <h5 style="font-size:150px; margin-top:50px">{{ usuarioConectados }}</h5>
     <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
@@ -33,9 +50,10 @@ export default {
     socket.on("Notification", (argumentos) => {
       console.log('Nueva Notificacion', argumentos)
       this.$notify({
-        title: "Mensaje",
-        text: argumentos,
-        position: [0, 0]
+        title: "NUEVO EVENTO DISPONIBLE",
+        text: argumentos +"</br> hola",
+        position: [0, 0],
+        duration: 1000000
       });
     });
   },
@@ -55,7 +73,17 @@ export default {
 
 .notification-content{
   font-size:30px !important;
-  
 }
+
+.vue-notification{
+  background: black;
+  font-size:18px
+}
+
+.my-notification{
+  background:black;
+  color:white;
+}
+
 
 </style>
